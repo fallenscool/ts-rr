@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
-interface AppProps{
-  color: string
-}
+import { App } from './components/App';
+import { reducers } from './reducers';
 
-class App extends React.Component<AppProps> {
-  render(){
-    return <div>{this.props.color}</div>
-  }
-}
+const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <App color="red"/>, 
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.querySelector('#root')
 );
